@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CartStore } from '../cart.store';
-import { LineItem } from '../models';
+import { Cart, LineItem, Order } from '../models';
 import { Observable } from 'rxjs';
+import { ProductService } from '../product.service';
 
 @Component({
   selector: 'app-confirm-checkout',
@@ -15,7 +16,7 @@ export class ConfirmCheckoutComponent implements OnInit {
   form!: FormGroup
   items!: LineItem[]
   totalPrice!: number;
-  constructor(private fb: FormBuilder, private cartStore:CartStore) {
+  constructor(private fb: FormBuilder, private cartStore:CartStore, private productSvc: ProductService) {
   }
 
   
@@ -41,5 +42,15 @@ export class ConfirmCheckoutComponent implements OnInit {
     })
   }
 
+  checkout() {
+    const order:Order = {
+      name: this.form.value['name'],
+      address: this.form.value['address'],
+      priority: this.form.value['priority'],
+      comments: this.form.value['comments'],
+      cart: {lineItems: this.items}
+    }
+    this.productSvc.checkout(order);
+  }
 
 }

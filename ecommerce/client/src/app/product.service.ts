@@ -28,5 +28,7 @@ export class ProductService {
   // not be marked
   checkout(order: Order) {
     // TODO Task 3
+    console.log("Product Service, checkout -> ", order)
+    return this.http.post<Order>(`/api/order`, order).subscribe();
   }
 }
