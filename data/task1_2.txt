@@ -2,4 +2,4 @@ TODO Task 1
 
 Write the command to import products.csv into Mongo in this file
 
-mongoimport -d ecommerce -c products --file ./products.csv --type csv --uri "mongodb://mongo:ef2B2g1G6C566-D541CeFEf32-HDgd1A@roundhouse.proxy.rlwy.net:28831" --headerline --authenticationDatabase admin
+mongoimport -d ecommerce -c products --file ./products.csv --type csv --uri "mongodb://mongo:<REDACTED>@roundhouse.proxy.rlwy.net:28831" --headerline --authenticationDatabase admin

@@ -1,4 +1,7 @@
 -- TODO Task 3
+CREATE DATABASE ecommerce;
+USE ecommerce;
+
 CREATE TABLE orders (
     orderId char(26),
     date date,
