@@ -18,6 +18,7 @@ export class CartStore extends Dexie {
     private cart!: Dexie.Table<LineItem, string>;
 
     onNewProduct$ = new Subject<LineItem>();
+    onClearItems$ = new Subject<any>();
     
     constructor() {
         super('ecommerce')
@@ -37,6 +38,11 @@ export class CartStore extends Dexie {
     async getItems(): Promise<LineItem[]> {
         console.log("CartStore, getItems")
         return this.cart.toArray();
+    }
+
+    clearItems() {
+        this.cart.clear().then();
+        this.onClearItems$.next({});
     }
 
 }

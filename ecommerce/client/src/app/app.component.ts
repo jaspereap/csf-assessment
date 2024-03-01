@@ -17,15 +17,16 @@ export class AppComponent implements OnInit {
   private cartStore = inject(CartStore);
 
   itemCount!: number
+
   distinctProdId!: string[]
   items!: LineItem[];
   
   constructor() {
+  }
+  
+  ngOnInit(): void {
     this.itemCount = 0;
     this.distinctProdId = [];
-  }
-
-  ngOnInit(): void {
     this.cartStore.onNewProduct$.subscribe(
       (v) => {
         // Task 2.3
@@ -36,6 +37,10 @@ export class AppComponent implements OnInit {
         }
       }
     );
+
+    this.cartStore.onClearItems$.subscribe(
+      () => {this.itemCount = 0}
+    )
   }
 
   checkout(): void {

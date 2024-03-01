@@ -4,6 +4,7 @@ import { CartStore } from '../cart.store';
 import { Cart, LineItem, Order } from '../models';
 import { Observable } from 'rxjs';
 import { ProductService } from '../product.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-confirm-checkout',
@@ -16,7 +17,7 @@ export class ConfirmCheckoutComponent implements OnInit {
   form!: FormGroup
   items!: LineItem[]
   totalPrice!: number;
-  constructor(private fb: FormBuilder, private cartStore:CartStore, private productSvc: ProductService) {
+  constructor(private fb: FormBuilder, private cartStore:CartStore, private productSvc: ProductService, private router: Router) {
   }
 
   
@@ -50,7 +51,19 @@ export class ConfirmCheckoutComponent implements OnInit {
       comments: this.form.value['comments'],
       cart: {lineItems: this.items}
     }
-    this.productSvc.checkout(order);
+
+    this.productSvc.checkout(order).subscribe(
+      {
+        next: res => {
+          alert(res['orderId']);
+          this.router.navigate([""]);
+          this.cartStore.clearItems();
+        },
+        error: err => {
+          alert("Failed to add order!");
+        }
+      }
+    )
   }
 
 }
