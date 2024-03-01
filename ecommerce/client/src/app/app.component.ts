@@ -22,11 +22,25 @@ export class AppComponent implements OnInit {
   items!: LineItem[];
   
   constructor() {
+    console.log("Constructor")
+    this.itemCount = 0;
+    this.distinctProdId = [];
   }
   
   ngOnInit(): void {
-    this.itemCount = 0;
-    this.distinctProdId = [];
+    // Get initial cart from Store
+    this.cartStore.getItems().then((items) => {
+      this.items = items;
+      this.items.forEach(
+        (v) => {
+          if (this.distinctProdId.indexOf(v.prodId) === -1) {
+            this.distinctProdId.push(v.prodId);
+            this.itemCount++;
+          }
+        }
+      )
+    });
+    // Update on new product added to Store
     this.cartStore.onNewProduct$.subscribe(
       (v) => {
         // Task 2.3
@@ -37,7 +51,7 @@ export class AppComponent implements OnInit {
         }
       }
     );
-
+    // Reset item count on clear
     this.cartStore.onClearItems$.subscribe(
       () => {this.itemCount = 0}
     )

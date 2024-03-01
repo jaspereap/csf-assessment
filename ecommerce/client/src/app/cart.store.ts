@@ -40,7 +40,7 @@ export class CartStore extends Dexie {
         return this.cart.toArray();
     }
 
-    clearItems() {
+    async clearItems() {
         this.cart.clear().then();
         this.onClearItems$.next({});
     }
