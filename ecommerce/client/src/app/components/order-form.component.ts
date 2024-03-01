@@ -19,6 +19,10 @@ export class OrderFormComponent implements OnInit {
 
   @Input({ required: true })
   productId!: string
+  @Input()
+  productName!: string
+  @Input()
+  productPrice!: number
 
   form!: FormGroup
 
@@ -31,8 +35,10 @@ export class OrderFormComponent implements OnInit {
     const lineItem: LineItem = {
       prodId: this.productId,
       quantity: this.form.value['quantity'],
-      name: '',
-      price: 0
+      // name: '',
+      name: this.productName,
+      // price: 0
+      price: this.productPrice
     }
     this.cartStore.addItem(lineItem);
     this.form = this.createForm()

@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import {Observable} from 'rxjs';
 import {Router} from '@angular/router';
 import { CartStore } from './cart.store';
+import { LineItem } from './models';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,7 @@ export class AppComponent implements OnInit {
 
   itemCount!: number
   distinctProdId!: string[]
+  items!: LineItem[];
   
   constructor() {
     this.itemCount = 0;
@@ -37,6 +39,7 @@ export class AppComponent implements OnInit {
   }
 
   checkout(): void {
+    
     this.router.navigate([ '/checkout' ])
   }
 }

@@ -34,4 +34,9 @@ export class CartStore extends Dexie {
         )
     }
 
+    async getItems(): Promise<LineItem[]> {
+        console.log("CartStore, getItems")
+        return this.cart.toArray();
+    }
+
 }

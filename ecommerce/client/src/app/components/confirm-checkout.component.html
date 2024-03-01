@@ -1,23 +1,23 @@
 <h2>Checkout</h2>
 
-<form>
+<form [formGroup]="form">
   <table>
     <tr>
       <td>Name: </td>
       <td>
-        <input type="text" size="30">
+        <input type="text" size="30" formControlName="name">
       </td>
     </tr>
     <tr>
       <td>Address: </td>
       <td>
-        <input type="text" size="30">
+        <input type="text" size="30" formControlName="address">
       </td>
     </tr>
     <tr>
       <td>Priority: </td>
       <td>
-        <input type="checkbox">
+        <input type="checkbox" formControlName="priority">
       </td>
     </tr>
     <tr>
@@ -29,7 +29,7 @@
     <tr>
       <td></td>
       <td>
-        <button type="submit">Place Order</button>
+        <button type="submit" [disabled]="form.invalid">Place Order</button>
       </td>
     </tr>
   </table>
@@ -37,6 +37,29 @@
 
 <hr>
 
+<table *ngIf="items" border="1">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Quantity</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let i of items">
+    <tr>
+      <td>{{i.name}}</td>
+      <td>{{i.price | currency:"INR"}}</td>
+      <td>{{i.quantity}}</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <td></td>
+    <td>Total: </td>
+    <td> {{totalPrice|currency:"INR"}}</td>
+  </tfoot>
+</table>
+
+<!-- 
 <table border="1">
   <thead>
     <tr>
@@ -57,4 +80,4 @@
     <td>Total: </td>
     <td> 100 </td>
   </tfoot>
-</table>
+</table> -->
