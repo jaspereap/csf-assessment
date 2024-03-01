@@ -1,5 +1,7 @@
 package vttp.batch4.csf.ecommerce.services;
 
+import java.sql.SQLException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +18,12 @@ public class PurchaseOrderService {
   // If this method is changed, any assessment task relying on this method will
   // not be marked
   // You may only add Exception to the method's signature
-  public void createNewPurchaseOrder(Order order) {
+  public void createNewPurchaseOrder(Order order) throws SQLException{
     // TODO Task 3
+    try {
+      poRepo.create(order);
+    } catch (SQLException e) {
+      throw new SQLException("Operation failed");
+    }
   }
 }
