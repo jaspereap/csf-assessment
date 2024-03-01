@@ -22,7 +22,7 @@ public class PurchaseOrderRepository {
   public void create(Order order) throws SQLException {
     // TODO Task 3
     String INSERT_ORDER = """
-        insert into orders values (?, ?, ?, ?, ?, ?)
+        insert into orders values (?, ?, ?, ?, ?, ?, ?)
         """;
     int updated = template.update(INSERT_ORDER, 
       order.getOrderId(), 
@@ -30,7 +30,8 @@ public class PurchaseOrderRepository {
       order.getName(), 
       order.getAddress(), 
       order.getPriority(), 
-      order.getComments());
+      order.getComments(),
+      order.getCart().toString());
     if (updated != 1) {
       throw new SQLDataException("Operation failed");
     }

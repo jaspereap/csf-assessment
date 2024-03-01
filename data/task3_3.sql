@@ -6,5 +6,6 @@ CREATE TABLE orders (
     address varchar(128),
     priority boolean,
     comments text,
+    cart text,
     primary key(orderId)
 )
